@@ -39,8 +39,8 @@ config :phoenix, :stacktrace_depth, 20
 # Configure your database
 config :fari, Fari.Repo,
   adapter: Ecto.Adapters.Postgres,
-  username: "postgres",
-  password: "postgres",
+#  username: "postgres",
+#  password: "postgres",
   database: "fari_dev",
   hostname: "localhost",
   pool_size: 10
