@@ -5,7 +5,11 @@ defmodule FariWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/api", FariWeb do
+  scope "/" do
     pipe_through :api
+
+    forward "/graphiql",
+      Absinthe.Plug.GraphiQL,
+      schema: FariWeb.Schema
   end
 end
