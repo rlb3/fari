@@ -9,6 +9,8 @@ defmodule Fari.Core.User do
     field :email, :string
     field :first_name, :string
     field :last_name, :string
+    has_many :todos, Fari.Core.Todo
+    many_to_many :groups, Fari.Core.Group, join_through: Fari.Core.Membership
 
     timestamps()
   end

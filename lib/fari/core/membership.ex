@@ -7,8 +7,8 @@ defmodule Fari.Core.Membership do
   @foreign_key_type :binary_id
   schema "memberships" do
     field :admin, :boolean, default: false
-    field :user_id, :binary_id
-    field :group_id, :binary_id
+    belongs_to :user, Fari.Core.User
+    belongs_to :group_id, Fari.Core.Group
 
     timestamps()
   end
@@ -16,7 +16,7 @@ defmodule Fari.Core.Membership do
   @doc false
   def changeset(membership, attrs) do
     membership
-    |> cast(attrs, [:admin])
-    |> validate_required([:admin])
+    |> cast(attrs, [:admin, :user_id, :group_id])
+    |> validate_required([:admin, :user_id, :group_id])
   end
 end

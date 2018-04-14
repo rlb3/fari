@@ -7,6 +7,7 @@ defmodule Fari.Core.Group do
   @foreign_key_type :binary_id
   schema "groups" do
     field :name, :string
+    many_to_many :users, Fari.Core.User, join_through: Fari.Core.Membership
 
     timestamps()
   end

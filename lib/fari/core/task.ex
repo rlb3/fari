@@ -9,7 +9,7 @@ defmodule Fari.Core.Task do
     field :complete, :boolean, default: false
     field :description, :string
     field :order, :integer
-    field :todo_id, :binary_id
+    belongs_to :todo, Fari.Core.Todo
 
     timestamps()
   end
@@ -18,6 +18,6 @@ defmodule Fari.Core.Task do
   def changeset(task, attrs) do
     task
     |> cast(attrs, [:description, :complete, :order])
-    |> validate_required([:description, :complete, :order])
+    |> validate_required([:description, :order])
   end
 end

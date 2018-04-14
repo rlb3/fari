@@ -10,7 +10,8 @@ defmodule Fari.Core.Todo do
     field :due_at, :utc_datetime
     field :priority, :boolean, default: false
     field :title, :string
-    field :user_id, :binary_id
+    has_many :tasks, Fari.Core.Task
+    belongs_to :user, Fari.Core.User
 
     timestamps()
   end
@@ -19,6 +20,6 @@ defmodule Fari.Core.Todo do
   def changeset(todo, attrs) do
     todo
     |> cast(attrs, [:title, :due_at, :priority, :complete])
-    |> validate_required([:title, :due_at, :priority, :complete])
+    |> validate_required([:title, :due_at])
   end
 end
