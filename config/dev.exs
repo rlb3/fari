@@ -44,3 +44,8 @@ config :fari, Fari.Repo,
   database: "fari_dev",
   hostname: "localhost",
   pool_size: 10
+
+config :fari, Fari.Guardian,
+  issuer: "fari",
+  secret_key: "5QpSziFv6UWP7x/6AzOScEfQzORd3cnDyAVeu2YojCdF2Z9mLiSGZBJKUoYQNw7l",
+  ttl: {8, :hours}

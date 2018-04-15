@@ -12,7 +12,10 @@ defmodule FariWeb.Resolvers.Users do
     user = Repo.get_by(User, email: args.email)
     case Comeonin.Argon2.check_pass(user, args.password) do
       {:ok, user} ->
-        {:ok, user}
+        case Fari.Guardian.encode_and_sign(user) do
+          {:ok, token, _} ->
+            {:ok, %{token: token}}
+        end
       {:error, _message} ->
         Comeonin.Argon2.dummy_checkpw
         {:error, "Bad Username or password"}

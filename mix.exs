@@ -43,6 +43,7 @@ defmodule Fari.Mixfile do
       {:absinthe_plug, "~> 1.4"},
       {:comeonin, "~> 4.1"},
       {:argon2_elixir, "~> 1.2"},
+      {:guardian, "~> 1.0"}
     ]
   end
 

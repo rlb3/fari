@@ -12,4 +12,8 @@ defmodule FariWeb.Schema.TodoTypes do
       end
     end
   end
+
+  object :session do
+    field :token, :string, description: "JWT Token"
+  end
 end
