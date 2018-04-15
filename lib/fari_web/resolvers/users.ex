@@ -7,9 +7,13 @@ defmodule FariWeb.Resolvers.Users do
   end
 
   def register(_obj, args, _ctx) do
-    %User{}
-    |> User.registration_changeset(args)
-    |> Repo.insert()
+    with {:ok, user} <- %User{} |> User.registration_changeset(args) |> Repo.insert(),
+         {:ok, token, _} <- Fari.Guardian.encode_and_sign(user) do
+      {:ok, %{token: token}}
+    else
+      {:error, %{errors: [email: {message, []}]}} ->
+        {:error, "That email #{message}"}
+    end
   end
 
   def login(_obj, args, _ctx) do

@@ -13,7 +13,7 @@ defmodule FariWeb.Schema do
   end
 
   mutation do
-    field :register, non_null(:user) do
+    field :register, non_null(:session) do
       arg(:first_name, :string, description: "First name")
       arg(:last_name, :string, description: "Last name")
       arg(:email, non_null(:string), description: "The users email")

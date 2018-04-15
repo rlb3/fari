@@ -3,7 +3,6 @@ defmodule FariWeb.Router do
 
   pipeline :api do
     plug(:accepts, ["json"])
-    plug(Guardian.Plug.VerifyHeader, realm: "Bearer")
     plug(:resource)
   end
 
