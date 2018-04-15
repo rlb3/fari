@@ -5,7 +5,7 @@ defmodule FariWeb.Resolvers.Users do
   def register(_obj, args, _ctx) do
     %User{}
     |> User.registration_changeset(args)
-    |> Repo.insert
+    |> Repo.insert()
   end
 
   def login(_obj, args, _ctx) do
@@ -17,13 +17,14 @@ defmodule FariWeb.Resolvers.Users do
     else
       {:error, "invalid password"} ->
         {:error, "Bad Username or password"}
+
       {:error, message} ->
         {:error, message}
     end
   end
 
   def list_users(_obj, _args, _ctx) do
-    users = User |> Repo.all
+    users = User |> Repo.all()
     {:ok, users}
   end
 end

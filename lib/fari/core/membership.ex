@@ -2,13 +2,12 @@ defmodule Fari.Core.Membership do
   use Ecto.Schema
   import Ecto.Changeset
 
-
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
   schema "memberships" do
-    field :admin, :boolean, default: false
-    belongs_to :user, Fari.Core.User
-    belongs_to :group_id, Fari.Core.Group
+    field(:admin, :boolean, default: false)
+    belongs_to(:user, Fari.Core.User)
+    belongs_to(:group_id, Fari.Core.Group)
 
     timestamps()
   end

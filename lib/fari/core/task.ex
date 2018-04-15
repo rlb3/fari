@@ -2,14 +2,13 @@ defmodule Fari.Core.Task do
   use Ecto.Schema
   import Ecto.Changeset
 
-
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
   schema "tasks" do
-    field :complete, :boolean, default: false
-    field :description, :string
-    field :order, :integer
-    belongs_to :todo, Fari.Core.Todo
+    field(:complete, :boolean, default: false)
+    field(:description, :string)
+    field(:order, :integer)
+    belongs_to(:todo, Fari.Core.Todo)
 
     timestamps()
   end
