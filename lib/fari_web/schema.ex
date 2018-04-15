@@ -3,6 +3,10 @@ defmodule FariWeb.Schema do
   import_types(FariWeb.Schema.TodoTypes)
 
   query do
+    field :me, :user, description: "The current user" do
+      resolve(&FariWeb.Resolvers.Users.me/3)
+    end
+
     field :users, list_of(:user), description: "Users" do
       resolve(&FariWeb.Resolvers.Users.list_users/3)
     end

@@ -2,6 +2,11 @@ defmodule FariWeb.Resolvers.Users do
   alias Fari.Repo
   alias Fari.Core.User
 
+
+  def me(_obj, _args, ctx) do
+    {:ok, ctx.context.current_user}
+  end
+
   def register(_obj, args, _ctx) do
     %User{}
     |> User.registration_changeset(args)
