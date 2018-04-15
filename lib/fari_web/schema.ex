@@ -17,5 +17,12 @@ defmodule FariWeb.Schema do
 
       resolve &FariWeb.Resolvers.Users.register/3
     end
+
+    field :login, :user do
+      arg :email, :string, description: "User's email"
+      arg :password, :string, description: "Password"
+
+      resolve &FariWeb.Resolvers.Users.login/3
+    end
   end
 end
