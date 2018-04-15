@@ -40,7 +40,9 @@ defmodule Fari.Mixfile do
       {:gettext, "~> 0.11"},
       {:cowboy, "~> 1.0"},
       {:absinthe, "~> 1.4"},
-      {:absinthe_plug, "~> 1.4"}
+      {:absinthe_plug, "~> 1.4"},
+      {:comeonin, "~> 4.1"},
+      {:argon2_elixir, "~> 1.2"},
     ]
   end
 
