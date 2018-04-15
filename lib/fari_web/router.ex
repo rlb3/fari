@@ -14,18 +14,13 @@ defmodule FariWeb.Router do
   end
 
   defp resource(conn, _opt) do
-    case  get_req_header(conn, "authentication") do
-      ["Bearer " <> token] ->
-        case token do
-          "" -> conn
-          token ->
-            case Fari.Guardian.resource_from_token(token) do
-              {:ok, user, _claims} ->
-                Plug.Conn.put_private(conn, :absinthe, %{context: %{current_user: user}})
-            end
-        end
-
-      _ -> conn
+    with ["Bearer " <> token] <- get_req_header(conn, "authentication"),
+         {:ok, user, _claims} <- Fari.Guardian.resource_from_token(token)
+      do
+      conn
+      |> Plug.Conn.put_private(:absinthe, %{context: %{current_user: user}})
+      else
+        _ -> conn
     end
   end
 end
