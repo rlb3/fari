@@ -2,8 +2,12 @@ defmodule FariWeb.Resolvers.Users do
   alias Fari.Repo
   alias Fari.Core.User
 
-  def me(_obj, _args, ctx) do
-    {:ok, ctx.context.current_user}
+  def me(_obj, _args, %{context: %{current_user: user}}) do
+    {:ok, user}
+  end
+
+  def me(_obj, _args, _ctx) do
+    {:error, "Unauthenticated"}
   end
 
   def register(_obj, args, _ctx) do
