@@ -7,7 +7,7 @@ defmodule Fari.Core.Membership do
   schema "memberships" do
     field(:admin, :boolean, default: false)
     belongs_to(:user, Fari.Core.User)
-    belongs_to(:group_id, Fari.Core.Group)
+    belongs_to(:group, Fari.Core.Group)
 
     timestamps()
   end
@@ -16,6 +16,6 @@ defmodule Fari.Core.Membership do
   def changeset(membership, attrs) do
     membership
     |> cast(attrs, [:admin, :user_id, :group_id])
-    |> validate_required([:admin, :user_id, :group_id])
+    |> validate_required([:user_id, :group_id])
   end
 end

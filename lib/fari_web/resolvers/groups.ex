@@ -1,8 +1,8 @@
 defmodule FariWeb.Resolvers.Groups do
   alias Fari.Repo
-  alias Fari.Core.Group
+  alias Fari.Core.{Group, Membership}
 
-  def create(_obj, args, %{context: %{current_user: _user}}) do
+  def create(_obj, args, %{context: %{current_user: user}}) do
     group =
       %Group{}
       |> Group.changeset(args)
@@ -10,6 +10,10 @@ defmodule FariWeb.Resolvers.Groups do
 
     case group do
       {:ok, group} ->
+        %Membership{}
+        |> Membership.changeset(%{admin: true, user_id: user.id, group_id: group.id})
+        |> Repo.insert()
+
         {:ok, group}
 
       {:error, %{errors: [name: {message, _}]}} ->
