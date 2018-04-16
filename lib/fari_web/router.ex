@@ -18,7 +18,12 @@ defmodule FariWeb.Router do
       conn
       |> Plug.Conn.put_private(:absinthe, %{context: %{current_user: user}})
     else
-      _ -> conn
+      {:error, :token_expired} ->
+        conn
+
+      error ->
+        IO.inspect(error)
+        conn
     end
   end
 end
