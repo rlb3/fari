@@ -1,6 +1,7 @@
 defmodule FariWeb.Schema do
   use Absinthe.Schema
   import_types(FariWeb.Schema.TodoTypes)
+  import_types(FariWeb.Schema.GroupTypes)
 
   query do
     field :me, :user, description: "The current user" do
@@ -27,6 +28,12 @@ defmodule FariWeb.Schema do
       arg(:password, :string, description: "Password")
 
       resolve(&FariWeb.Resolvers.Users.login/3)
+    end
+
+    field :group_create, non_null(:group) do
+      arg(:name, :string, description: "Group name")
+
+      resolve(&FariWeb.Resolvers.Groups.create/3)
     end
   end
 end
