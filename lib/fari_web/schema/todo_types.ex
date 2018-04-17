@@ -25,4 +25,22 @@ defmodule FariWeb.Schema.TodoTypes do
   object :session do
     field(:token, :string, description: "JWT Token")
   end
+
+  object :todo do
+    field(:id, :id, description: "Todo id")
+    field(:title, :string, description: "Todo Title")
+    field(:priority, :boolean, description: "Priority?")
+    field(:due_at, :date, description: "Due date")
+  end
+
+  scalar :date do
+    parse(fn input ->
+      case Timex.parse!(input.value, "{YYYY}-{0M}-{D}") |> DateTime.from_naive("Etc/UTC") do
+        {:ok, date} -> {:ok, date}
+        _ -> :error
+      end
+    end)
+
+    serialize(fn date -> Date.to_iso8601(date) end)
+  end
 end

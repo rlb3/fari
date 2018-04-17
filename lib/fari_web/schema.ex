@@ -35,6 +35,14 @@ defmodule FariWeb.Schema do
 
       resolve(&FariWeb.Resolvers.Groups.create/3)
     end
+
+    field :todo_create, non_null(:todo) do
+      arg(:title, :string)
+      arg(:complete, :boolean)
+      arg(:priority, :boolean)
+      arg(:due_at, :date)
+      resolve(&FariWeb.Resolvers.Todos.create/3)
+    end
   end
 
   def dataloader() do

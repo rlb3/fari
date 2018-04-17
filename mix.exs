@@ -44,7 +44,8 @@ defmodule Fari.Mixfile do
       {:comeonin, "~> 4.1"},
       {:argon2_elixir, "~> 1.2"},
       {:guardian, "~> 1.0"},
-      {:dataloader, "~> 1.0.0"}
+      {:dataloader, "~> 1.0.0"},
+      {:timex, "~> 3.1"}
     ]
   end
 

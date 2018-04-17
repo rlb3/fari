@@ -7,6 +7,7 @@ defmodule Fari.Core.Group do
   schema "groups" do
     field(:name, :string)
     many_to_many(:users, Fari.Core.User, join_through: Fari.Core.Membership)
+    has_many(:memberships, Fari.Core.Membership)
 
     timestamps()
   end
