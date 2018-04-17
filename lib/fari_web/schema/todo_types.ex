@@ -1,5 +1,6 @@
 defmodule FariWeb.Schema.TodoTypes do
   use Absinthe.Schema.Notation
+  import Absinthe.Resolution.Helpers, only: [dataloader: 2]
 
   object :user do
     field(:id, :id, description: "User ID")
@@ -12,6 +13,13 @@ defmodule FariWeb.Schema.TodoTypes do
         {:ok, "#{user.first_name} #{user.last_name}"}
       end)
     end
+
+    field(
+      :groups,
+      list_of(:group),
+      description: "User Groups",
+      resolve: dataloader(Fari.Core.User, :groups)
+    )
   end
 
   object :session do

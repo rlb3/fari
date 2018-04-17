@@ -36,4 +36,17 @@ defmodule FariWeb.Schema do
       resolve(&FariWeb.Resolvers.Groups.create/3)
     end
   end
+
+  def dataloader() do
+    Dataloader.new()
+    |> Dataloader.add_source(Fari.Core.User, Fari.Core.data())
+  end
+
+  def context(ctx) do
+    Map.put(ctx, :loader, dataloader())
+  end
+
+  def plugins do
+    [Absinthe.Middleware.Dataloader | Absinthe.Plugin.defaults()]
+  end
 end
