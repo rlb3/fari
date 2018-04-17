@@ -8,7 +8,7 @@ defmodule FariWeb.Schema do
       resolve(&FariWeb.Resolvers.Users.me/3)
     end
 
-    field :users, list_of(:user), description: "Users" do
+    field :users, list_of(:user), description: "List users in my groups" do
       resolve(&FariWeb.Resolvers.Users.list_users/3)
     end
   end
