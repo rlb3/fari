@@ -36,13 +36,17 @@ defmodule FariWeb.Resolvers.Users do
   end
 
   def list_users(_obj, _args, %{context: %{current_user: user}}) do
-    user = user |> Repo.preload(:groups)
-    users = Enum.map(user.groups, fn g -> g.id end)
-    |> Enum.map(fn id -> Fari.Repo.get(Fari.Core.Group, id) end)
-    |> Enum.map(fn group -> group |> Fari.Repo.preload(:users) end)
+    users = user
+    |> Fari.Repo.preload(:groups)
+    |> get_groups()
+    |> Enum.map(fn group -> Fari.Repo.preload(group, :users) end)
     |> Enum.map(fn g -> g.users end)
     |> List.flatten()
 
     {:ok, users}
+  end
+
+  defp get_groups(user) do
+    user.groups
   end
 end
