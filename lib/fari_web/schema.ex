@@ -43,11 +43,17 @@ defmodule FariWeb.Schema do
       arg(:due_at, :date)
       resolve(&FariWeb.Resolvers.Todos.create/3)
     end
+
+    field :todo_complete, non_null(:todo) do
+      arg :id, :id
+      resolve &FariWeb.Resolvers.Todos.complete/3
+    end
   end
 
   def dataloader() do
     Dataloader.new()
     |> Dataloader.add_source(Fari.Core.User, Fari.Core.data())
+    |> Dataloader.add_source(Fari.Core.Todo, Fari.Core.data())
   end
 
   def context(ctx) do

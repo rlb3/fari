@@ -20,6 +20,8 @@ defmodule FariWeb.Schema.TodoTypes do
       description: "User Groups",
       resolve: dataloader(Fari.Core.User, :groups)
     )
+
+    field :todos, list_of(:todo), description: "User todos", resolve: dataloader(Fari.Core.Todo, :todos)
   end
 
   object :session do
@@ -31,6 +33,7 @@ defmodule FariWeb.Schema.TodoTypes do
     field(:title, :string, description: "Todo Title")
     field(:priority, :boolean, description: "Priority?")
     field(:due_at, :date, description: "Due date")
+    field(:complete, :boolean, description: "Todo complete")
   end
 
   scalar :date do
