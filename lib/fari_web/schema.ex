@@ -53,11 +53,13 @@ defmodule FariWeb.Schema do
       arg(:complete, :boolean)
       arg(:priority, :boolean)
       arg(:due_at, :date)
+      
       resolve(&FariWeb.Resolvers.Todos.create/3)
     end
 
     field :todo_complete, non_null(:todo) do
       arg :id, :id
+      
       resolve &FariWeb.Resolvers.Todos.complete/3
     end
   end
