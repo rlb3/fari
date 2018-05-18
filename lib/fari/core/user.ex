@@ -12,6 +12,7 @@ defmodule Fari.Core.User do
     field(:password_hash, :string)
     has_many(:todos, Fari.Core.Todo)
     many_to_many(:groups, Fari.Core.Group, join_through: Fari.Core.Membership)
+    has_many(:memberships, Fari.Core.Membership)
 
     timestamps()
   end

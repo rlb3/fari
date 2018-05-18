@@ -3,6 +3,18 @@ defmodule FariWeb.Schema do
   import_types(FariWeb.Schema.TodoTypes)
   import_types(FariWeb.Schema.GroupTypes)
 
+  subscription do
+    field :marked_todo, :todo do
+      config fn _args, _info ->
+        {:ok, topic: "*"}
+      end
+
+      resolve fn root, _, _ ->
+        {:ok, root}
+      end
+    end
+  end
+
   query do
     field :me, :user, description: "The current user" do
       resolve(&FariWeb.Resolvers.Users.me/3)

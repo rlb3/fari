@@ -1,5 +1,6 @@
 defmodule FariWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :fari
+  use Absinthe.Phoenix.Endpoint
 
   socket("/socket", FariWeb.UserSocket)
 

@@ -11,7 +11,8 @@ defmodule Fari.Application do
       # Start the Ecto repository
       supervisor(Fari.Repo, []),
       # Start the endpoint when the application starts
-      supervisor(FariWeb.Endpoint, [])
+      supervisor(FariWeb.Endpoint, []),
+      supervisor(Absinthe.Subscription, [FariWeb.Endpoint])
       # Start your own worker by calling: Fari.Worker.start_link(arg1, arg2, arg3)
       # worker(Fari.Worker, [arg1, arg2, arg3]),
     ]
