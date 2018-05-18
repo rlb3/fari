@@ -9,9 +9,12 @@ defmodule FariWeb.Router do
   scope "/" do
     pipe_through(:api)
 
-    forward("/graphiql", Absinthe.Plug.GraphiQL,
+    forward(
+      "/graphiql",
+      Absinthe.Plug.GraphiQL,
       schema: FariWeb.Schema,
-      socket: FariWeb.UserSocket)
+      socket: FariWeb.UserSocket
+    )
   end
 
   defp resource(conn, _opt) do

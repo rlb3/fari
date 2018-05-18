@@ -21,7 +21,12 @@ defmodule FariWeb.Schema.TodoTypes do
       resolve: dataloader(Fari.Core.User, :groups)
     )
 
-    field :todos, list_of(:todo), description: "User todos", resolve: dataloader(Fari.Core.Todo, :todos)
+    field(
+      :todos,
+      list_of(:todo),
+      description: "User todos",
+      resolve: dataloader(Fari.Core.Todo, :todos)
+    )
   end
 
   object :session do

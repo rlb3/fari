@@ -5,13 +5,13 @@ defmodule FariWeb.Schema do
 
   subscription do
     field :marked_todo, :todo do
-      config fn _args, _info ->
+      config(fn _args, _info ->
         {:ok, topic: "*"}
-      end
+      end)
 
-      resolve fn root, _, _ ->
+      resolve(fn root, _, _ ->
         {:ok, root}
-      end
+      end)
     end
   end
 
@@ -53,14 +53,14 @@ defmodule FariWeb.Schema do
       arg(:complete, :boolean)
       arg(:priority, :boolean)
       arg(:due_at, :date)
-      
+
       resolve(&FariWeb.Resolvers.Todos.create/3)
     end
 
     field :todo_complete, non_null(:todo) do
-      arg :id, :id
-      
-      resolve &FariWeb.Resolvers.Todos.complete/3
+      arg(:id, :id)
+
+      resolve(&FariWeb.Resolvers.Todos.complete/3)
     end
   end
 
