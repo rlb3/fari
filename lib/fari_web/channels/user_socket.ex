@@ -1,6 +1,7 @@
 defmodule FariWeb.UserSocket do
   use Phoenix.Socket
   use Absinthe.Phoenix.Socket, schema: FariWeb.Schema
+  require Logger
 
   ## Channels
   # channel "room:*", FariWeb.RoomChannel
@@ -20,8 +21,14 @@ defmodule FariWeb.UserSocket do
   #
   # See `Phoenix.Token` documentation for examples in
   # performing token verification on connect.
-  def connect(_params, socket) do
-    {:ok, socket}
+  def connect(params, socket) do
+    Logger.info "connect"
+    case auth(params["authorization"]) do
+      {:ok, user} ->
+        {:ok, assign(socket, :user, user)}
+      _ ->
+        :error
+    end
   end
 
   # Socket id's are topics that allow you to identify all sockets for a given user:
@@ -35,4 +42,11 @@ defmodule FariWeb.UserSocket do
   #
   # Returning `nil` makes this socket anonymous.
   def id(_socket), do: nil
+
+  defp auth(token) do
+    case Fari.Auth.resource_from_token(token) do
+      {:ok, user} -> {:ok, user}
+      _ -> :error
+    end
+  end
 end

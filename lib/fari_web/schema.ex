@@ -2,6 +2,7 @@ defmodule FariWeb.Schema do
   use Absinthe.Schema
   import_types(FariWeb.Schema.TodoTypes)
   import_types(FariWeb.Schema.GroupTypes)
+  alias Absinthe.Type.{Field, Object}
 
   subscription do
     field :marked_todo, :todo do
@@ -9,8 +10,8 @@ defmodule FariWeb.Schema do
         {:ok, topic: "*"}
       end)
 
-      resolve(fn root, _, _ ->
-        {:ok, root}
+      resolve(fn todo, _, _ ->
+        {:ok, todo}
       end)
     end
   end
@@ -76,5 +77,17 @@ defmodule FariWeb.Schema do
 
   def plugins do
     [Absinthe.Middleware.Dataloader | Absinthe.Plugin.defaults()]
+  end
+
+  def middleware(middleware, %Field{identifier: id}, _object) when id in [:register, :login] do
+    middleware
+  end
+
+  def middleware(middleware, _field, %Object{identifier: id}) when id in [:query, :mutation] do
+    [Fari.Authentication | middleware]
+  end
+
+  def middleware(middleware, _field, _object) do
+    middleware
   end
 end
