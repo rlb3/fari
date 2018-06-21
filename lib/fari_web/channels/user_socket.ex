@@ -22,10 +22,12 @@ defmodule FariWeb.UserSocket do
   # See `Phoenix.Token` documentation for examples in
   # performing token verification on connect.
   def connect(params, socket) do
-    Logger.info "connect"
+    Logger.info("connect")
+
     case auth(params["authorization"]) do
       {:ok, user} ->
         {:ok, assign(socket, :user, user)}
+
       _ ->
         :error
     end
