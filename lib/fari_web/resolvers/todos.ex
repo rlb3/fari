@@ -10,6 +10,7 @@ defmodule FariWeb.Resolvers.Todos do
 
   def complete(_obj, %{id: id}, %{context: %{current_user: user}}) do
     from(t in Fari.Core.Todo, where: t.user_id == ^user.id and t.id == ^id)
+    |> Fari.Repo.one!()
     |> Fari.Core.Todo.changeset(%{complete: true})
     |> Fari.Repo.update()
     |> notify_mark
